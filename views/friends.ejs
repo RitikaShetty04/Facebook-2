@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+<title><%= user.loggedInUserFname + "'s"%> Friends</title>
+<link type="text/css" href="/stylesheets/userstyle.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script type="text/javascript" src="/stylesheets/jquery-1.10.2.min.js"></script>
+
+<script>
+function confirmation(friendname)
+{
+	document.getElementById("confirmbutton").removeAttribute("hidden");
+	document.getElementById("confirmname").value=friendname;
+}
+</script>
+</head>
+<body style="background-color:rgba(188, 232, 241, 1);">
+	
+ <div id="w">  
+ <nav class="navbar navbar-default">
+    <div id="content" class="clearfix">
+    <div class="panel panel-primary">
+     <div id="userphoto">
+					<img align="middle" src="/Images/profile.jpeg" height="70px" width="70px" alt="default profile picture">
+					<form method="post" >
+      <button type="submit" class="btn btn-primary" formaction="/Logout">Signout</button>
+      </form>
+				</div><br><br><br><br>
+				
+      <h1 class="panel-heading" align="left">Welcome to facebook...</h1>
+<font face="Comic Sans MS, cursive, sans-serif">
+
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand">Welcome <%=user.username%></a>
+						</div>
+						<form>
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="Basic example">
+								<button type="submit" class="btn btn-primary"
+									formaction="/home">Home</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/friends">Friends</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/newsfeeds">News Feeds</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/groups">Groups</button>
+						</form>
+					</div>
+			</div>
+<br>
+<div class="col-md-6" style="padding: 10px">
+			<div> <form>
+    <input type="text" placeholder="Search friend" name="searchrequest"></input>
+    <button type="submit" class="btn btn-primary  btn-sm" value="Submit" formaction="search">Submit</button>
+    </form></div>
+    <div>  
+     <% if (typeof name !== "undefined") { %>
+    <%for (var i = 0; i < name.length; i++) {%>
+    <p><%=name[i].user_name%></p>
+    &nbsp<button type="submit" onclick="confirmation('<%=name[i].user_name%>')">Send Request</button><%
+	}%>
+	<% }%>
+   </div>
+   <br>
+   <div>
+    <form>
+    <input name="confirm" id="confirmname" hidden></input>
+     <input type="submit" formaction="inputfriend" id="confirmbutton" value="Are you sure you want to send this friend request?" hidden></p>
+    <p><%=message%></p>
+    </form>
+</div>
+<a class="navbar-brand"><%=section%></a>
+<br><br><div>
+<% if (typeof rows !== "undefined") { %>
+<% for (var i = 0; i < rows.length; i++) { %>
+						<ul>
+						<%=rows[i]%>
+						</ul>
+
+	<% }%>
+	<% }%>
+</div>
+</div>
+<div class="col-md-6" style="padding: 10px">
+<center>
+			<form method="post" action="accept">
+    <button type="submit" class="btn btn-primary  btn-sm" value="Check Friend Request" name="check">Check Friend Request</button>
+			</form>
+<br><br>
+			<div ng-app="myApp" ng-controller="Controller">
+<% if (typeof friendrequest !== "undefined") { %>
+<% for(var i=0;i<friendrequest.length;i++) {%>
+				<p><%=friendrequest[i]%></p>
+			 <input type="submit" ng-hide="result"
+					id="freindrequest[i]" value="Accept"
+					ng-click="acceptedfriend('<%=friendrequest[i]%>','<%=user.username%>')">
+				<input type="submit" value="Ignore" ng-hide="result"
+					ng-click="rejectedfriend('<%=friendrequest[i]%>','<%=user.username%>')">
+  
+				<% } %> 
+<% }%>
+				<p ng-show="result">Friend request {{result}}</p>
+			</div>
+			</center>
+</div>
+			<script type="text/javascript">
+  var app = angular.module('myApp', []);
+  app.controller('Controller', function($scope,$http,$window)
+		  {$scope.disabled="false";
+
+			$scope.acceptedfriend = function(m_id, f_id) {
+					$http({
+						method : "POST",
+						url : '/acceptfriendid',
+						data : {
+							"m_id" : m_id,
+							"f_id" : f_id
+						}
+					}).success(function(data) {
+						$scope.result = "Accepted";
+						// window.location.assign('/');
+					})
+				}
+
+				$scope.rejectedfriend = function(m_id, f_id) {
+					$http({
+						method : "POST",
+						url : '/rejectfriendid',
+						data : {
+							"m_id" : m_id,
+							"f_id" : f_id
+						}
+					}).success(function(data) {
+						$scope.result = "Rejected";
+						// window.location.assign('/');
+					})
+				}
+			});
+		</script>
+			
+		</nav>
+	</div>
+	<!-- @end #w -->
+
+</body>
+</html>

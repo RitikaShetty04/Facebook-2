@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Signup</title>
+<link type="text/css" href="/stylesheets/userstyle.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script type="text/javascript" src="/stylesheets/jquery-1.10.2.min.js"></script>
+</head>
+<body style="background-color:rgba(188, 232, 241, 1);">
+  <div id="w">
+   <nav class="navbar navbar-default">
+   <div id="content" class="clearfix">
+   <div class="panel panel-primary">
+     <h1 class="panel-heading" style="font-style: italic; font-size: 28px">Signup on Facebook</h1>
+  <center><br>
+<p><%=error%></p>
+		<form method="post" action="/aftersignup" autocomplete="on">
+			<input type="text" placeholder="First Name" name="first_name"
+				required><br> <br> 
+				<input type="text"
+				placeholder="Last Name" name="last_name" required><br><br>
+				<input type="text"
+				placeholder=" Username" name="user_name" required><br>
+			<br> <input type="email" placeholder="E-mail address"
+				name="email" required><br> <br> <input
+				type="password" placeholder="Password" name="password" required><br>
+			<br> <input type="password" placeholder="Retype Password"
+				name="password1" required><br> <br> <input
+				type="text" placeholder="Phone number (optional)" name="phone"><br>
+			<br> <input type="radio" value="male" name="sex" required>Male &nbsp
+			<input type="radio" value="female" name="sex" required>Female<br>
+			<br> Birthday: <input type="date" value="dob" name="dob"
+				required><br> <br> <input type="submit" class="btn btn-primary"
+				value="Signup!"><br><br>
+		</form>
+	</center>
+	  </div>
+   </div>
+  </nav><!-- @end #nav -->
+</div>
+</body>
+</html>

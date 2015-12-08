@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login - Facebook</title>
+    <link type="text/css" href="/stylesheets/userstyle.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script type="text/javascript" src="/stylesheets/jquery-1.10.2.min.js"></script>
+  </head>
+  <body style="background-color:rgba(188, 232, 241, 1);">
+  <br><br>
+  <div id="w">
+   <nav class="navbar navbar-default">
+   <div id="content" class="clearfix">
+   <div class="panel panel-primary"><br>
+     <h1 class="panel-heading" style="font-style: italic; font-size: 28px">Login to facebook...</h1>
+   <br>
+  <center>
+   <form method="post" action="login" autocomplete="on">
+   <font face="Comic Sans MS, cursive, sans-serif">Enter Username: <input type="text" name="username" required placeholder="Username"><br>
+   Enter Password: <input type="password" name="password" required placeholder="Password"><br><br>
+   <button type="submit" class="btn btn-primary" value="Login">Login</button>
+    </form>
+  
+    <form method="get" action="/signup"> <br>
+   <button type="submit" class="btn btn-primary" value="Not a member? Register!">Not a member? Signup!</button>
+    </form>	
+   </center>
+   <center><br>
+<b><%=error%></b>
+   </center>
+   <br>  
+ 
+   </div>
+   </div>
+  </nav><!-- @end #nav -->
+</div><!-- @end #w -->
+   </body>
+</html>

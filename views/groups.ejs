@@ -1,0 +1,141 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+<title>Groups</title>
+<link type="text/css" href="/stylesheets/userstyle.css" rel="stylesheet">
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+	var myApp = angular.module('myApp', []);
+
+	myApp.controller('groupSelection', function($scope, $http, $window) {
+
+		$scope.selection = [];
+		$scope.group_description = '';
+		$scope.group_name = '';
+		$scope.show=false;
+
+		$scope.displayDetails = function displayDetails(group_name, group_description) {
+			$scope.group_description = group_description;
+			$scope.group_name = group_name;
+			$scope.show=true;
+
+		};
+
+	});
+</script>
+</head>
+<body style="background-color:rgba(188, 232, 241, 1);">
+
+ <div id="w">  
+ <nav class="navbar navbar-default">
+    <div id="content" class="clearfix">
+    <div class="panel panel-primary">
+     <div id="userphoto">
+					<img align="middle" src="/Images/profile.jpeg" height="70px" width="70px" alt="default profile picture">
+					<form method="post" >
+      <button type="submit" class="btn btn-primary" formaction="/Logout">Signout</button>
+      </form>
+				</div><br><br><br><br>
+				
+      <h1 class="panel-heading" align="left">Welcome to facebook...</h1>
+<font face="Comic Sans MS, cursive, sans-serif">
+
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand">Welcome <%=user.username%></a>
+						</div>
+						<form>
+							<div class="btn-group btn-group-justified" role="group"
+								aria-label="Basic example">
+								<button type="submit" class="btn btn-primary" formaction="/home">Home</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/friends">Friends</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/newsfeeds">News Feeds</button>
+								<button type="submit" class="btn btn-primary"
+									formaction="/groups">Groups</button>
+							</div>
+						</form>
+
+
+						<div>
+							<div  ng-app="myApp" ng-controller="groupSelection" class="row">
+								<div class="col-md-6" style="padding: 10px">
+									<a class="navbar-brand">Your groups</a><hr><br>
+									 <% if (typeof rows !== "undefined") { %>
+									<% for (var i = 0; i < rows.length; i++) { %>
+									<p>
+										<input class="btn btn-link" type="submit" value="<%=rows[i].group_name%>"
+											ng-click="displayDetails('<%=rows[i].group_name%>','<%=rows[i].group_description%>')">
+
+										
+									</p>
+									<% }%>
+									<% }%>
+
+								</div>
+							
+								<div class="col-md-6" style="padding: 10px">
+								<br><br>
+								{{group_name}} <br>{{group_description}}
+									<br><br>
+									
+									<div class="btn-group btn-group-justified" role="group"
+								aria-label="Basic example">
+									<button ng-show="show" class="btn btn-primary" name="addmembers">Add
+											Members</button>
+										<button ng-show="show" class="btn btn-primary" name="delmembers">Delete
+											Member</button>
+											<button ng-show="show" class="btn btn-primary" name="viewmembers">View
+											Members</button>
+									</div>
+									</div>
+									</div>
+							
+							<a class="navbar-brand">Add new Group</a><hr>
+							<form method="post" action="/formgroup">
+								<table>
+									<tr>
+										<td>Group Name:</td>&nbsp
+										<td>&nbsp&nbsp<input type="text" name="groupname" placeholder="Group name" required>
+										</td>
+									</tr>
+									<tr>
+										<td><br>Description:</td>
+										<td><br>&nbsp&nbsp<input type="text" name="description" placeholder="Group description" required>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+								<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<input class="btn btn-primary" type="submit" value="Create" /><br>
+									</form>
+											
+					</div>
+					<br>
+					</div>
+					</div>
+					<!-- @end #container fluid -->
+			</div>
+			<!-- @end #clearfix -->
+		</nav>
+		<!-- @end #nav -->
+	</div>
+	<!-- @end #w -->
+
+</body>
+</html>
